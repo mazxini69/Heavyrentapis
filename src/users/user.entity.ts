@@ -16,4 +16,7 @@ export class User {
 
   @Column({ nullable: true })
   picture: string;
+
+  @Column({ default: 'customer' })
+  role: string;
 }

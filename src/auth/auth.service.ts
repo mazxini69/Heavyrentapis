@@ -18,7 +18,7 @@ export class AuthService {
     const user = await this.usersService.findOrCreateGoogleUser(req.user);
 
     // Generate JWT access token
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id, email: user.email, role: user.role };
     return {
       message: 'User information from google',
       user,
