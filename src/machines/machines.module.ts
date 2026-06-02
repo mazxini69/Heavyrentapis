@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MachinesService } from './machines.service';
 import { MachinesController } from './machines.controller';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
+  imports: [AuthModule],
+  controllers: [MachinesController],
   providers: [MachinesService],
-  controllers: [MachinesController]
 })
 export class MachinesModule {}
