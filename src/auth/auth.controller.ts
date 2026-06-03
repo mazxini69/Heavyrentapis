@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 
@@ -16,5 +16,10 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleAuthRedirect(@Req() req: any) {
     return this.authService.googleLogin(req);
+  }
+
+  @Get('token')
+  async getMockToken(@Query('role') role: string) {
+    return this.authService.generateMockToken(role || 'customer');
   }
 }

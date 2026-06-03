@@ -25,4 +25,23 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  // Helper method to generate standard JWTs for Postman testing
+  async generateMockToken(role: string) {
+    const isHostAdmin = role === 'admin';
+    const mockUser = {
+      id: isHostAdmin ? 999 : 888,
+      email: isHostAdmin ? 'admin@heavyrent.com' : 'customer@heavyrent.com',
+      name: isHostAdmin ? 'Admin Tester' : 'Customer Tester',
+      role: isHostAdmin ? 'admin' : 'customer',
+      picture: 'https://placehold.co/150',
+    };
+
+    const payload = { sub: mockUser.id, email: mockUser.email, role: mockUser.role };
+    return {
+      message: `Mock token generated successfully for role: ${role}`,
+      user: mockUser,
+      access_token: this.jwtService.sign(payload),
+    };
+  }
 }

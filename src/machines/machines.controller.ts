@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { MachinesService } from './machines.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../common/roles/roles.guard';
@@ -13,5 +13,10 @@ export class MachinesController {
   @Post()
   create(@Body() createMachineDto: any) {
     return this.machinesService.create(createMachineDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.machinesService.findAll();
   }
 }
