@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { RentalsService } from './rentals.service';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
@@ -15,8 +15,8 @@ export class RentalsController {
   @ApiResponse({ status: 401, description: 'No autorizado - Token inválido o faltante.' })
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body() createRentalDto: CreateRentalDto) {
-    return this.rentalsService.create(createRentalDto);
+  create(@Body() createRentalDto: CreateRentalDto, @Req() req: any) {
+    return this.rentalsService.create(createRentalDto, req.user.id);
   }
 
   @ApiBearerAuth('JWT-auth')
@@ -25,8 +25,8 @@ export class RentalsController {
   @ApiResponse({ status: 401, description: 'No autorizado.' })
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  findAll() {
-    return this.rentalsService.findAll();
+  findAll(@Req() req: any) {
+    return this.rentalsService.findAll(req.user.id);
   }
 
   @ApiOperation({ summary: 'Obtener detalles de un alquiler específico por ID' })

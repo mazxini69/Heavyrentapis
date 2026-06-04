@@ -8,6 +8,7 @@ import { RentalsModule } from './rentals/rentals.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
+import { Rental } from './rentals/rental.entity';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { User } from './users/user.entity';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_NAME || 'heavyrent',
-      entities: [User],
+      entities: [User, Rental],
       synchronize: true,
     }),
     MachinesModule,
